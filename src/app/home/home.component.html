@@ -1,0 +1,41 @@
+<div style="text-align:center">
+    <h1>Welcome to Crypto Commerce!</h1>
+    <img width="300" alt="Angular Logo" src="../../assets/images/Logo.png">
+</div>
+<br/>
+<br/>
+<br/>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <label>Select User</label>
+        <select class="form-control" #selectedUserName>
+            <option *ngFor="let user of this.users">{{user.firstname}} {{user.lastname}}</option>
+        </select>
+        <br/><br/><br/>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button (click) = "onUserLogin(selectedUserName.value)" class="btn btn-success">Login (User)</button>
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-12 text-center">
+              <span><strong>OR login as Administrator</strong></span>
+            </div>
+        </div>
+    </div><br/><br/>
+    <div class="col-md-6 col-md-offset-3">
+        <label>Select Admin Account</label>
+        <select class="form-control" disabled>
+            <option>Standard Administrator Account #1</option>
+        </select>
+        <br/><br/><br/>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button (click) = "onAdminLogin()" class="btn btn-danger">Login (Administrator)</button>
+          </div>
+        </div>
+      </div>
+</div>
+
+
