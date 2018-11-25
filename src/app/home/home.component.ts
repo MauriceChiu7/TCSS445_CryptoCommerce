@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
-import { UserDashboardComponent } from '../user-dashboard/user-dashboard.component';
+import {Router} from '@angular/router';
+import { GlobalService } from '../services/global.service';
+
 
 @Component({
   selector: 'app-home',
@@ -8,41 +10,35 @@ import { UserDashboardComponent } from '../user-dashboard/user-dashboard.compone
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  //users = ["hari", "maurice", "aayush"];
   users : Array<User>;
+  router: Router;
+  globalService: GlobalService;
 
-  constructor() {
-
+  constructor(router: Router, globalService: GlobalService) {
+    this.router= router;
+    this.globalService = globalService;
   }
   
-
   ngOnInit() {
-    this.users = new Array<User>();
-    this.users.push(new User(1, 'Hari', 'Kuduva', 'harikuduva@uw.edu', 'Court 17', '1234567890'));
-    this.users.push(new User(2, 'Maurice', 'Chiu', 'mauricechiu@uw.edu', 'Court 18', '1234567891'));
-    this.users.push(new User(3, 'Aayush', 'Shah', 'aayushshah@uw.edu', 'Court 19', '1234567892'));
+    this.users = this.globalService.getAllUsers();
   }
 
-
-  setUser(user: any) {
+  setUser(user: User) {
     console.log(user);
-
+    this.globalService.setCurrentUser(user);
+    this.router.navigateByUrl('/dashboard');
   }
+
   onUserLogin(userFirstLast: String) {
-    let selectedUser = this.users[0];
     for (let i = 0; i < this.users.length; i++) {
-      const user = this.users[i];
-      if (userFirstLast === (user.firstname + ' ' + user.lastname)) {
-        selectedUser = user;
+      if (userFirstLast === (this.users[i].firstname + ' ' + this.users[i].lastname)) {
+        this.setUser(this.users[i]);
         break;
       }
     }
-    console.log(selectedUser);
   }
 
   onAdminLogin() {
     console.log('Admin Login Pressed')
-
   }
-
 }
