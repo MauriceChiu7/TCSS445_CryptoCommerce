@@ -1,0 +1,38 @@
+<br/><br/><br/>
+<div class="row">
+  <div #head class="col-md-6 col-md-offset-3">
+      <label>Select User</label>
+      <select [ngModel]="selectedUser" (ngModelChange)="onChange($event)" name="sel2" class = "form-control">
+        <option [ngValue]="i" *ngFor="let i of users">{{i.firstname}}</option>
+    </select>
+      <hr/><br/><br/>
+  </div>
+</div>
+<br/><br/>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3"><label>Inbound Transfers for User</label>
+      <table class="table table-hover">
+          <tr><th *ngFor = "let header of getTableHeaders()">{{header}}</th></tr>
+          <tr *ngFor = "let transactions of getTransfersInbound()">
+              <td>{{transactions.coin}}</td>
+              <td>{{transactions.numberOfCoins}}</td> 
+              <td>{{transactions.sender_recipient}}</td>
+              <td>{{transactions.date}}</td>
+          </tr>
+      </table>
+  </div>
+</div>
+<br/><br/>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3"><label>Outbound Transfers for User</label>
+      <table class="table table-hover">
+          <tr><th *ngFor = "let header of getTableHeaders()">{{header}}</th></tr>
+          <tr *ngFor = "let transactions of getTransfersOutbound()">
+              <td>{{transactions.coin}}</td>
+              <td>{{transactions.numberOfCoins}}</td> 
+              <td>{{transactions.sender_recipient}}</td>
+              <td>{{transactions.date}}</td>
+          </tr>
+      </table>
+  </div>
+</div>

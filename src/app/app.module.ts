@@ -9,6 +9,11 @@ import { WalletComponent } from './wallet/wallet.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { TransfersComponent } from './transfers/transfers.component';
 import { OpenOrdersComponent } from './open-orders/open-orders.component';
+import { AdminComponent } from './admin/admin.component';
+
+
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -18,11 +23,13 @@ import { OpenOrdersComponent } from './open-orders/open-orders.component';
     WalletComponent,
     TransactionsComponent,
     TransfersComponent,
-    OpenOrdersComponent
+    OpenOrdersComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule
   ],
   providers: [GlobalService],
   bootstrap: [AppComponent]

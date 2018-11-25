@@ -3,6 +3,7 @@ import { User } from '../models/user';
 import { CoinEquity } from '../models/coinEquity';
 import { CoinTrade } from '../models/coinTrade';
 import { Transfer } from '../models/transfer';
+import { Transaction } from '../models/transaction';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,6 @@ import { Transfer } from '../models/transfer';
 export class GlobalService {
 
   user: User;
-
   constructor() { }
 
   setCurrentUser(user: User) {
@@ -63,8 +63,13 @@ export class GlobalService {
   getTransfers() {
     let toSend = new Array<Transfer>();
     toSend.push(new Transfer(true, 'Bitcoin', (.5).toFixed(2), 'Aayush Shah', new Date()));
-    toSend.push(new Transfer(true, 'Bitcoin', (.5).toFixed(2), 'Maurice Chui', new Date()));
+    toSend.push(new Transfer(true, 'Bitcoin', (.5).toFixed(2), 'Maurice Chiu', new Date()));
     toSend.push(new Transfer(true, 'Bitcoin', (.5).toFixed(2), 'Hari Kuduva', new Date()));
+    toSend.push(new Transfer(false, 'Bitcoin', (.5).toFixed(2), 'Aayush Shah', new Date()));
+    toSend.push(new Transfer(false, 'Bitcoin', (.5).toFixed(2), 'Hari Kuduva', new Date()));
+    toSend.push(new Transfer(false, 'Bitcoin', (.5).toFixed(2), 'Maurice Chiu', new Date()));
+
+
     return toSend;
   }
 
@@ -73,6 +78,15 @@ export class GlobalService {
     toSend.push(new User(1, 'Hari', 'Kuduva', 'harikuduva@uw.edu', 'Court 17', '1234567890'));
     toSend.push(new User(2, 'Maurice', 'Chiu', 'mauricechiu@uw.edu', 'Court 18', '1234567891'));
     toSend.push(new User(3, 'Aayush', 'Shah', 'aayushshah@uw.edu', 'Court 19', '1234567892'));
+    return toSend;
+  }
+
+  getTransactions() {
+    let toSend = new Array<Transaction>();
+    toSend.push(new Transaction(true, 'Tether', (1).toFixed(2), (1).toFixed(2), new Date()));
+    toSend.push(new Transaction(true, 'LiteCoin', (2).toFixed(2), (110).toFixed(2), new Date()));
+    toSend.push(new Transaction(true, 'Dash', (1).toFixed(2), (90).toFixed(2), new Date()));
+    toSend.push(new Transaction(false, 'Nano', (1).toFixed(2), (50).toFixed(2), new Date()));
     return toSend;
   }
 

@@ -39,6 +39,6 @@ export class HomeComponent implements OnInit {
   }
 
   onAdminLogin() {
-    console.log('Admin Login Pressed')
+    this.router.navigateByUrl('/admin');
   }
 }

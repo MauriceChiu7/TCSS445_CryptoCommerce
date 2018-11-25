@@ -6,6 +6,7 @@ import { WalletComponent } from './wallet/wallet.component';
 import { TransfersComponent } from './transfers/transfers.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { OpenOrdersComponent } from './open-orders/open-orders.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'wallet', component: WalletComponent},
   {path: 'transfers', component: TransfersComponent},
   {path: 'transactions', component: TransactionsComponent},
-  {path: 'open-orders', component: OpenOrdersComponent}
+  {path: 'open-orders', component: OpenOrdersComponent},
+  {path: 'admin', component: AdminComponent}
 
 ];
 
