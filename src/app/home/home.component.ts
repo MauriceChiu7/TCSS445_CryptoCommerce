@@ -10,15 +10,15 @@ import { GlobalService } from '../services/global.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  users : Array<User>;
+  users: Array<User>;
   router: Router;
   globalService: GlobalService;
 
   constructor(router: Router, globalService: GlobalService) {
-    this.router= router;
+    this.router = router;
     this.globalService = globalService;
   }
-  
+
   ngOnInit() {
     this.users = this.globalService.getAllUsers();
   }

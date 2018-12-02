@@ -4,6 +4,8 @@ import { CoinEquity } from '../models/coinEquity';
 import { CoinTrade } from '../models/coinTrade';
 import { Transfer } from '../models/transfer';
 import { Transaction } from '../models/transaction';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,10 @@ import { Transaction } from '../models/transaction';
 export class GlobalService {
 
   user: User;
-  constructor() { }
+  http: HttpClient;
+  constructor(http: HttpClient) {
+    this.http = http;
+  }
 
   setCurrentUser(user: User) {
     this.user = user;
@@ -68,13 +73,29 @@ export class GlobalService {
     toSend.push(new Transfer(false, 'Bitcoin', (.5).toFixed(2), 'Aayush Shah', new Date()));
     toSend.push(new Transfer(false, 'Bitcoin', (.5).toFixed(2), 'Hari Kuduva', new Date()));
     toSend.push(new Transfer(false, 'Bitcoin', (.5).toFixed(2), 'Maurice Chiu', new Date()));
-
-
     return toSend;
   }
 
   getAllUsers() {
     let toSend = new Array<User>();
+    this.http.post('https://crypto-commerce-backend.herokuapp.com/get-members',{})
+
+      .subscribe(res => {
+        debugger;
+        let json = JSON.parse(JSON.stringify(res));
+
+        //var json = JSON.parse(res.toString());
+        //debugger;
+        //debugger;
+        //console.log(res);
+        for (let i = 0; i < json.rows.length; i++) {
+          console.log(json.rows[i].fname);
+        }
+        debugger;
+    });
+
+
+
     toSend.push(new User(1, 'Hari', 'Kuduva', 'harikuduva@uw.edu', 'Court 17', '1234567890'));
     toSend.push(new User(2, 'Maurice', 'Chiu', 'mauricechiu@uw.edu', 'Court 18', '1234567891'));
     toSend.push(new User(3, 'Aayush', 'Shah', 'aayushshah@uw.edu', 'Court 19', '1234567892'));

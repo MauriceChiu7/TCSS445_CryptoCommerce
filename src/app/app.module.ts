@@ -10,6 +10,8 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { TransfersComponent } from './transfers/transfers.component';
 import { OpenOrdersComponent } from './open-orders/open-orders.component';
 import { AdminComponent } from './admin/admin.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 import { FormsModule } from '@angular/forms';
@@ -29,7 +31,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [GlobalService],
   bootstrap: [AppComponent]
