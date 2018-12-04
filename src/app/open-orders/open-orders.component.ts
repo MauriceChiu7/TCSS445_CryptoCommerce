@@ -1,3 +1,4 @@
+import { CoinTrade } from './../models/coinTrade';
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from '../services/global.service';
 
@@ -10,13 +11,33 @@ export class OpenOrdersComponent implements OnInit {
 
   globalService: GlobalService;
 
-  constructor(globalService: GlobalService) { 
+  constructor(globalService: GlobalService) {
     this.globalService = globalService;
   }
 
 
   ngOnInit() {
-  
+
+  }
+
+
+  getAllOpenOrders() {
+    this.globalService.getAllOpenOrders()
+      .then(res => {
+        const json = JSON.parse(JSON.stringify(res));
+        if (json.success) {
+          let buyable = new Array<CoinTrade>();
+          let myListings = new Array<CoinTrade>();
+          for (let i = 0; i < json.buyable.length; i++) {
+
+          }
+
+          for (let i = 0; i < json.mylistings.length; i++) {
+
+          }
+        }
+      })
+
   }
 
   getTableHeaders() {
@@ -26,11 +47,11 @@ export class OpenOrdersComponent implements OnInit {
   }
 
   getMyListings() {
-    return this.globalService.getMyListings();
+    //return this.globalService.getMyListings();
   }
 
   getBuyableListings() {
-    return this.globalService.getBuyableListings();
+    //return this.globalService.getBuyableListings();
   }
 
   getEquityForUser() {

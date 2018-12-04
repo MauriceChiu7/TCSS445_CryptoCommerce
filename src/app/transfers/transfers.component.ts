@@ -31,7 +31,7 @@ export class TransfersComponent implements OnInit {
   getTransfers() {
     let toSend = this.globalService.getTransfers();
     for (let i = 0; i < toSend.length; i++) {
-      if (toSend[i].sender_recipient === this.globalService.getCurrentUser().firstname 
+      if (toSend[i].sender_recipient === this.globalService.getCurrentUser().firstname
                 + ' ' + this.globalService.getCurrentUser().lastname) {
                   toSend.splice(i, 1);
                 }
@@ -47,12 +47,12 @@ export class TransfersComponent implements OnInit {
     let toSend = new Array<User>();
     const users = this.globalService.getAllUsers();
     const currUser = this.globalService.getCurrentUser();
-    for (let i = 0; i < users.length; i++) {
-      if (currUser.firstname !== users[i].firstname 
+    /*for (let i = 0; i < users.length; i++) {
+      if (currUser.firstname !== users[i].firstname
           && currUser.lastname !== users[i].lastname) {
             toSend.push(users[i]);
       }
-    }
+    }*/
     debugger;
     return toSend;
   }

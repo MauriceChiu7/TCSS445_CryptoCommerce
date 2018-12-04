@@ -22,11 +22,21 @@ export class UserDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.globalService.getCurrentUser();
-    this.userBalance = (100).toFixed(2);
+    this.globalService.getBalance(this.currentUser.userId)
+      .then(res => {
+        let json = JSON.parse(JSON.stringify(res));
+        if (json.success) { this.userBalance = json.rows[0].balance; }
+      });
   }
 
   setBalance(value: string) {
-    this.userBalance = Number.parseFloat(value).toFixed(2);
+    let newBalance = +Number.parseFloat(value).toFixed(2);
+    this.globalService.setBalance(newBalance)
+      .then(res => {
+        let json = JSON.parse(JSON.stringify(res));
+        debugger;
+        if (json.success) { this.userBalance = Number.parseFloat(value).toFixed(2); }
+      })
   }
 
   goToWallet() {

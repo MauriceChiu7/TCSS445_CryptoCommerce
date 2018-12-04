@@ -14,8 +14,23 @@ export class AdminComponent implements OnInit {
   selectedUser: User;
   constructor(globalService: GlobalService) {
     this.globalService = globalService;
-    this.users = globalService.getAllUsers();
-    this.selectedUser = globalService.getAllUsers()[0];
+    this.globalService.getAllUsers()
+      .then(res => {
+        const json = JSON.parse(JSON.stringify(res));
+        if (json.success) {
+            let toSend = Array<User>();
+            for (let i = 0; i < json.rows.length; i++) {
+              const user = json.rows[i];
+              toSend.push(new User(user.user_id, user.fname, user.lname, user.email, user.addr, user.phone));
+            }
+            this.users = toSend;
+            this.selectedUser = toSend[0];
+        }
+
+    })
+
+    //this.users = globalService.getAllUsers();
+    //this.selectedUser = globalService.getAllUsers()[0];
   }
   devices = 'one two three'.split(' ');
   selectedDevice = 'two';
@@ -28,8 +43,8 @@ export class AdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.users = this.globalService.getAllUsers()
-    this.selectedUser = this.users[0];
+    //this.users = this.globalService.getAllUsers()
+    //this.selectedUser = this.users[0];
     debugger;
   }
 
@@ -48,8 +63,8 @@ export class AdminComponent implements OnInit {
       let toSend: Array<Transfer> = new Array<Transfer>();
       let transfers = this.globalService.getTransfers();
       for (let i = 0; i < transfers.length; i++) {
-        if (transfers[i].isInbound && 
-            transfers[i].sender_recipient !== 
+        if (transfers[i].isInbound &&
+            transfers[i].sender_recipient !==
               this.selectedUser.firstname + ' ' + this.selectedUser.lastname) {
                 toSend.push(transfers[i]);
         }
@@ -66,8 +81,8 @@ export class AdminComponent implements OnInit {
       let toSend: Array<Transfer> = new Array<Transfer>();
       let transfers = this.globalService.getTransfers();
       for (let i = 0; i < transfers.length; i++) {
-        if (!transfers[i].isInbound && 
-            transfers[i].sender_recipient !== 
+        if (!transfers[i].isInbound &&
+            transfers[i].sender_recipient !==
               this.selectedUser.firstname + ' ' + this.selectedUser.lastname) {
                 toSend.push(transfers[i]);
         }

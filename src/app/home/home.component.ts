@@ -20,11 +20,21 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.users = this.globalService.getAllUsers();
+    this.globalService.getAllUsers()
+      .then(res => {
+        const json = JSON.parse(JSON.stringify(res));
+        let toSend = Array<User>();
+        if (json.success) {
+          for (let i = 0; i < json.rows.length; i++) {
+            const user = json.rows[i];
+            toSend.push(new User(user.user_id, user.fname, user.lname, user.email, user.addr, user.phone));
+          }
+        }
+        this.users = toSend;
+      })
   }
 
   setUser(user: User) {
-    console.log(user);
     this.globalService.setCurrentUser(user);
     this.router.navigateByUrl('/dashboard');
   }

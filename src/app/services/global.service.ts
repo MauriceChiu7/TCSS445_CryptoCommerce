@@ -5,6 +5,9 @@ import { CoinTrade } from '../models/coinTrade';
 import { Transfer } from '../models/transfer';
 import { Transaction } from '../models/transaction';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
+
 
 
 @Injectable({
@@ -22,28 +25,31 @@ export class GlobalService {
     this.user = user;
   }
 
+  getBalance(userId: Number) {
+    return this.http.post('https://crypto-commerce-backend.herokuapp.com/get-balance',{"User_ID": userId}).toPromise();
+  }
+
   getCurrentUser() {
     return this.user;
   }
 
   getCoinEquityForUser() {
-    let toSend: Array<CoinEquity> = new Array<CoinEquity>();
-    toSend.push(new CoinEquity('Bitcoin', (1).toFixed(2), (6000).toFixed(2)))
-    toSend.push(new CoinEquity('Tether', (1).toFixed(2), (1).toFixed(2)))
-    toSend.push(new CoinEquity('LiteCoin', (2).toFixed(2), (60).toFixed(2)))
-    toSend.push(new CoinEquity('Dash', (1).toFixed(2), (92).toFixed(2)))
-    return toSend;
+    return this.http.post('https://crypto-commerce-backend.herokuapp.com/get-wallet',{"User_ID": this.user.userId}).toPromise();
   }
 
   getAllOpenOrders() {
-    let toSend: Array<CoinTrade> = new Array<CoinTrade>();
+    //return new Array<CoinTrade>();
+
+    return this.http.post('https://crypto-commerce-backend.herokuapp.com/get-open-orders',{"User_ID": this.user.userId}).toPromise();
+
+    /*let toSend: Array<CoinTrade> = new Array<CoinTrade>();
     toSend.push(new CoinTrade('Bitcoin', 'Hari Kuduva', (1).toFixed(2), (100000).toFixed(2)));
     toSend.push(new CoinTrade('Bitcoin', 'Maurice Chiu', (1).toFixed(2), (100000).toFixed(2)));
     toSend.push(new CoinTrade('Bitcoin', 'Aayush Shah', (1).toFixed(2), (100000).toFixed(2)));
-    return toSend
+    return toSend*/
 
   }
-
+/*
   getBuyableListings() {
     let toSend = this.getAllOpenOrders();
     for (let i = 0; i < toSend.length; i++) {
@@ -63,7 +69,7 @@ export class GlobalService {
       }
     }
     return toSend;
-  }
+  }*/
 
   getTransfers() {
     let toSend = new Array<Transfer>();
@@ -77,29 +83,15 @@ export class GlobalService {
   }
 
   getAllUsers() {
-    let toSend = new Array<User>();
-    this.http.post('https://crypto-commerce-backend.herokuapp.com/get-members',{})
+    return this.http.post('https://crypto-commerce-backend.herokuapp.com/get-members',{}).toPromise();
+  }
 
-      .subscribe(res => {
-        debugger;
-        let json = JSON.parse(JSON.stringify(res));
-
-        //var json = JSON.parse(res.toString());
-        //debugger;
-        //debugger;
-        //console.log(res);
-        for (let i = 0; i < json.rows.length; i++) {
-          console.log(json.rows[i].fname);
-        }
-        debugger;
-    });
-
-
-
-    toSend.push(new User(1, 'Hari', 'Kuduva', 'harikuduva@uw.edu', 'Court 17', '1234567890'));
-    toSend.push(new User(2, 'Maurice', 'Chiu', 'mauricechiu@uw.edu', 'Court 18', '1234567891'));
-    toSend.push(new User(3, 'Aayush', 'Shah', 'aayushshah@uw.edu', 'Court 19', '1234567892'));
-    return toSend;
+  setBalance(newBalance: Number) {
+    debugger;
+    return this.http.post('https://crypto-commerce-backend.herokuapp.com/set-balance',{
+      "User_ID": this.user.userId,
+      "New_Balance": newBalance
+    }).toPromise();
   }
 
   getTransactions() {
