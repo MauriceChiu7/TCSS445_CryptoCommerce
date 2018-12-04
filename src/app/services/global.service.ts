@@ -38,16 +38,7 @@ export class GlobalService {
   }
 
   getAllOpenOrders() {
-    //return new Array<CoinTrade>();
-
     return this.http.post('https://crypto-commerce-backend.herokuapp.com/get-open-orders',{"User_ID": this.user.userId}).toPromise();
-
-    /*let toSend: Array<CoinTrade> = new Array<CoinTrade>();
-    toSend.push(new CoinTrade('Bitcoin', 'Hari Kuduva', (1).toFixed(2), (100000).toFixed(2)));
-    toSend.push(new CoinTrade('Bitcoin', 'Maurice Chiu', (1).toFixed(2), (100000).toFixed(2)));
-    toSend.push(new CoinTrade('Bitcoin', 'Aayush Shah', (1).toFixed(2), (100000).toFixed(2)));
-    return toSend*/
-
   }
 /*
   getBuyableListings() {

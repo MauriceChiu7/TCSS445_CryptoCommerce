@@ -37,13 +37,11 @@ export class WalletComponent implements OnInit {
         const json = JSON.parse(JSON.stringify(res));
         let toSend = Array<CoinEquity>();
         if (json.success) {
-          debugger;
           for (let i = 0; i < json.rows.length; i++) {
             toSend.push(new CoinEquity(json.rows[i].currency_type, json.rows[i].num_of_coins,
                  json.rows[i].price_per_unit, json.rows[i].Equity));
           }
         }
-        debugger;
         this.myCurrencies = toSend;
     });
   }
