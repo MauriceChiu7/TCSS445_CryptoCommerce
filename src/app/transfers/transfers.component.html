@@ -3,11 +3,11 @@
   <div class="col-md-8 col-md-offset-2"><label>My Transfer History</label>
       <table class="table table-hover">
           <tr><th *ngFor = "let header of getTableHeaders()">{{header}}</th></tr>
-          <tr *ngFor = "let transfer of getTransfers()">
+          <tr *ngFor = "let transfer of this.myTransferHistory">
               <td *ngIf = "transfer.isInbound"><span class="glyphicon glyphicon-import" aria-hidden="true"></span></td>
               <td *ngIf = "!transfer.isInbound"><span class="glyphicon glyphicon-export" aria-hidden="true"></span></td>
               <td>{{transfer.coin}}</td>
-              <td>{{transfer.numberOfCoins}}</td> 
+              <td>{{transfer.numberOfCoins}}</td>
               <td>{{transfer.sender_recipient}}</td>
               <td>{{transfer.date}}</td>
           </tr>
@@ -18,9 +18,9 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3 text-center"><label>Select Coin</label>
         <select class="form-control" #selectedCoin>
-            <option *ngFor = "let coin of getEquityForUser()">{{coin.coin}}</option>
+            <option *ngFor = "let coin of this.myCurrencies">{{coin.coin}}</option>
         </select><br/>
-        
+
         <form class="form-inline">
             <div class="form-group">
               <div class="input-group">
@@ -31,7 +31,7 @@
 
           <label>Select Recipient</label>
           <select class="form-control" #recipient>
-              <option *ngFor = "let recipient of getRecipients()">{{recipient.firstname}} {{recipient.lastname}}</option>
+              <option *ngFor = "let recipient of this.myRecipients">{{recipient.firstname}} {{recipient.lastname}}</option>
           </select>
           <br/>
           <button (click) = "transfer(recipient.value, selectedCoin.value, numCoins.value)" class="btn btn-primary">Make Outbound Transfer</button>

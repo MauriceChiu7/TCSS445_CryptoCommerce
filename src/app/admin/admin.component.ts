@@ -12,8 +12,47 @@ export class AdminComponent implements OnInit {
   globalService: GlobalService;
   users: Array<User>;
   selectedUser: User;
+  inboundTransfer: Array<Transfer>;
+  outboundTransfer: Array<Transfer>;
+
   constructor(globalService: GlobalService) {
     this.globalService = globalService;
+    this.getAllUsers();
+
+  }
+
+  onChange(newValue) {
+    this.selectedUser = newValue;
+    this.getData();
+  }
+
+  ngOnInit() {
+  }
+
+  getData() {
+    this.globalService.getAdminView(this.selectedUser.userId)
+      .then(res => {
+        const json = JSON.parse(JSON.stringify(res));
+        if (json.success) {
+          const incomingTransfers = new Array<Transfer>();
+          const outgoingTransfers = new Array<Transfer>();
+          for (let i = 0; i < json.incoming.length; i++) {
+            const inc = json.incoming[i];
+            incomingTransfers.push(new Transfer(true, inc.currency_type, inc.num_of_coins,
+               inc.fname + ' ' + inc.lname, inc.date_time));
+          }
+          for (let i = 0; i < json.outgoing.length; i++) {
+            const out = json.outgoing[i];
+            outgoingTransfers.push(new Transfer(false, out.currency_type, out.num_of_coins,
+              out.fname + ' ' + out.lname, out.date_time));
+          }
+          this.inboundTransfer = incomingTransfers;
+          this.outboundTransfer = outgoingTransfers;
+        }
+      });
+  }
+
+  getAllUsers() {
     this.globalService.getAllUsers()
       .then(res => {
         const json = JSON.parse(JSON.stringify(res));
@@ -25,27 +64,10 @@ export class AdminComponent implements OnInit {
             }
             this.users = toSend;
             this.selectedUser = toSend[0];
+            this.getData();
+
         }
-
     })
-
-    //this.users = globalService.getAllUsers();
-    //this.selectedUser = globalService.getAllUsers()[0];
-  }
-  devices = 'one two three'.split(' ');
-  selectedDevice = 'two';
-
-  onChange(newValue) {
-    console.log(newValue);
-    this.selectedUser = newValue;
-    debugger;
-    // ... do other stuff here ...
-  }
-
-  ngOnInit() {
-    //this.users = this.globalService.getAllUsers()
-    //this.selectedUser = this.users[0];
-    debugger;
   }
 
 
@@ -56,40 +78,5 @@ export class AdminComponent implements OnInit {
     toSend.push("Sender");
     toSend.push("Date");
     return toSend;
-  }
-
-  getTransfersInbound() {
-    if (this.selectedUser!== null && this.selectedUser!== undefined) {
-      let toSend: Array<Transfer> = new Array<Transfer>();
-      let transfers = this.globalService.getTransfers();
-      for (let i = 0; i < transfers.length; i++) {
-        if (transfers[i].isInbound &&
-            transfers[i].sender_recipient !==
-              this.selectedUser.firstname + ' ' + this.selectedUser.lastname) {
-                toSend.push(transfers[i]);
-        }
-      }
-      debugger;
-      return toSend;
-    }
-  }
-
-
-
-  getTransfersOutbound() {
-    if (this.selectedUser!== null && this.selectedUser!== undefined) {
-      let toSend: Array<Transfer> = new Array<Transfer>();
-      let transfers = this.globalService.getTransfers();
-      for (let i = 0; i < transfers.length; i++) {
-        if (!transfers[i].isInbound &&
-            transfers[i].sender_recipient !==
-              this.selectedUser.firstname + ' ' + this.selectedUser.lastname) {
-                toSend.push(transfers[i]);
-        }
-      }
-      debugger;
-      return toSend;
-    }
-
   }
 }

@@ -22,10 +22,9 @@
                   <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
                   <div class="input-group">
                     <div class="input-group-addon">$</div>
-                    <input 
-                        type="text" class="form-control" autocomplete="off" 
+                    <input
+                        type="text" class="form-control" autocomplete="off"
                         #newBalance outline="none" placeholder="Amount">
-                    <div class="input-group-addon">.00</div>
                   </div><span>&nbsp;</span>
                 </div>
               </form><button (click) = "setBalance(newBalance.value)" class="btn btn-success">Set Balance</button></h1>
@@ -37,6 +36,6 @@
         <button (click) = "goToWallet()" type="button" class="btn btn-success btn-lg btn-block">Crypto Wallet</button>
         <button (click) = "goToTransfers()" type="button" class="btn btn-warning btn-lg btn-block">Transfers</button>
         <button (click) = "goToTransactions()" type="button" class="btn btn-danger btn-lg btn-block">Transactions</button>
-    </div>    
+    </div>
 </div>
 <hr/>

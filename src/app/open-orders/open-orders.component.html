@@ -8,7 +8,7 @@
               <td>{{coin.seller}}</td>
               <td>{{coin.numberOfCoins}}</td>
               <td>${{coin.price}}</td>
-              <td><button class="btn btn-primary">Buy</button></td>
+              <td><button class="btn btn-primary" (click) = "buyListing(coin)">Buy</button></td>
           </tr>
       </table>
   </div>
@@ -31,7 +31,6 @@
         <select class="form-control" #selectedCoin>
             <option *ngFor = "let coin of this.myCurrencies">{{coin.coin}}</option>
         </select><br/>
-
         <form class="form-inline">
             <div class="form-group">
               <div class="input-group">
@@ -39,16 +38,14 @@
               </div>
             </div>
           </form><br/>
-
           <form class="form-inline">
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-addon">$</div>
-                  <input type="text" class="form-control" #priceCoins placeholder="Price">
-                  <div class="input-group-addon">.00</div>
+                  <input type="text" class="form-control" #priceCoins placeholder="Price/Coin">
                 </div>
               </div>
             </form><br/>
-          <button (click) = "createListing(selectedCoin.value)"class="btn btn-primary">Create Listing</button>
+          <button (click) = "createListing(selectedCoin.value, numCoins.value, priceCoins.value)"class="btn btn-primary">Create Listing</button>
     </div>
 </div>

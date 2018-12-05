@@ -11,11 +11,7 @@ import { TransfersComponent } from './transfers/transfers.component';
 import { OpenOrdersComponent } from './open-orders/open-orders.component';
 import { AdminComponent } from './admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
-
-
-
 import { FormsModule } from '@angular/forms';
-
 
 @NgModule({
   declarations: [

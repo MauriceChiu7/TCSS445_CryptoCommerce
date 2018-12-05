@@ -22,7 +22,7 @@ export class WalletComponent implements OnInit {
   ngOnInit() {
     this.tableHeaders.push('Currency');
     this.tableHeaders.push('Number of Coins');
-    this.tableHeaders.push('Price/Unit');
+    this.tableHeaders.push('Market Price/Unit');
     this.tableHeaders.push('Total Equity');
     this.getMyCurrencies();
   }
@@ -39,7 +39,7 @@ export class WalletComponent implements OnInit {
         if (json.success) {
           for (let i = 0; i < json.rows.length; i++) {
             toSend.push(new CoinEquity(json.rows[i].currency_type, json.rows[i].num_of_coins,
-                 json.rows[i].price_per_unit, json.rows[i].Equity));
+                 json.rows[i].price_per_unit, json.rows[i].Equity, json.rows[i].crypto_id));
           }
         }
         this.myCurrencies = toSend;

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from '../services/global.service';
 import { User } from '../models/user';
-import { debug } from 'util';
 import { Router } from '@angular/router';
 
 @Component({
@@ -34,7 +33,6 @@ export class UserDashboardComponent implements OnInit {
     this.globalService.setBalance(newBalance)
       .then(res => {
         let json = JSON.parse(JSON.stringify(res));
-        debugger;
         if (json.success) { this.userBalance = Number.parseFloat(value).toFixed(2); }
       })
   }

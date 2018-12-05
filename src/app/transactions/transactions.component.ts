@@ -1,3 +1,4 @@
+import { Transaction } from './../models/transaction';
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from '../services/global.service';
 
@@ -8,11 +9,13 @@ import { GlobalService } from '../services/global.service';
 })
 export class TransactionsComponent implements OnInit {
   globalService: GlobalService;
+  myTransactions: Array<Transaction>;
   constructor(globalService: GlobalService) {
     this.globalService = globalService;
   }
 
   ngOnInit() {
+    this.getTransactions();
   }
 
   getTableHeaders() {
@@ -26,8 +29,17 @@ export class TransactionsComponent implements OnInit {
   }
 
   getTransactions() {
-    return this.globalService.getTransactions();
+    this.globalService.getTransactions()
+      .then(res => {
+        const json = JSON.parse(JSON.stringify(res));
+        if (json.success) {
+          const toSend = new Array<Transaction>();
+          for (let i = 0; i < json.trans.length; i++) {
+            const el = json.trans[i];
+            toSend.push(new Transaction(el.transaction_type, el.currency_type, el.num_of_coins, el.price_per_unit, el.date_time));
+          }
+          this.myTransactions = toSend;
+        }
+    })
   }
-
-
 }
