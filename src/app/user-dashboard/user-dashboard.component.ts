@@ -9,16 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-dashboard.component.css']
 })
 export class UserDashboardComponent implements OnInit {
-  globalService: GlobalService;
-  currentUser: User;
-  userBalance: any;
-  router: Router;
+  globalService: GlobalService; // global service
+  currentUser: User; // user that is logged in
+  userBalance: any; // user's balance
+  router: Router; // router to navigate between pages
 
   constructor(globalService: GlobalService, router: Router) {
     this.globalService = globalService;
     this.router = router;
   }
 
+  // on Intitialization of this component
   ngOnInit() {
     this.currentUser = this.globalService.getCurrentUser();
     this.globalService.getBalance(this.currentUser.userId)
@@ -28,6 +29,7 @@ export class UserDashboardComponent implements OnInit {
       });
   }
 
+  // Set the balance of this user
   setBalance(value: string) {
     let newBalance = +Number.parseFloat(value).toFixed(2);
     this.globalService.setBalance(newBalance)
@@ -37,14 +39,17 @@ export class UserDashboardComponent implements OnInit {
       })
   }
 
+  // Navigate to the wallet page
   goToWallet() {
     this.router.navigateByUrl('/wallet');
   }
 
+  // Navigate to the transfer page
   goToTransfers() {
     this.router.navigateByUrl('/transfers');
   }
 
+  // Navigate to the transactions page
   goToTransactions() {
     this.router.navigateByUrl('/transactions');
   }

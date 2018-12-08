@@ -8,6 +8,6 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   constructor(router: Router) {
-    router.navigateByUrl('/');
+    router.navigateByUrl('/'); // navigate to base url at the begining
   }
 }

@@ -8,17 +8,17 @@ import { Transfer } from '../models/transfer';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
+
 export class AdminComponent implements OnInit {
-  globalService: GlobalService;
-  users: Array<User>;
-  selectedUser: User;
-  inboundTransfer: Array<Transfer>;
-  outboundTransfer: Array<Transfer>;
+  globalService: GlobalService; // Global Service, sential class
+  users: Array<User>; // Array of users
+  selectedUser: User; // The current selected user
+  inboundTransfer: Array<Transfer>; // inbound transfers for the user
+  outboundTransfer: Array<Transfer>; // outbound transfers for the user
 
   constructor(globalService: GlobalService) {
     this.globalService = globalService;
     this.getAllUsers();
-
   }
 
   onChange(newValue) {
@@ -26,8 +26,7 @@ export class AdminComponent implements OnInit {
     this.getData();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   getData() {
     this.globalService.getAdminView(this.selectedUser.userId)
@@ -36,23 +35,23 @@ export class AdminComponent implements OnInit {
         if (json.success) {
           const incomingTransfers = new Array<Transfer>();
           const outgoingTransfers = new Array<Transfer>();
-          for (let i = 0; i < json.incoming.length; i++) {
+          for (let i = 0; i < json.incoming.length; i++) { // loop through incomeing transfers
             const inc = json.incoming[i];
             incomingTransfers.push(new Transfer(true, inc.currency_type, inc.num_of_coins,
                inc.fname + ' ' + inc.lname, inc.date_time));
           }
-          for (let i = 0; i < json.outgoing.length; i++) {
+          for (let i = 0; i < json.outgoing.length; i++) { // loop through outgoing transfers
             const out = json.outgoing[i];
             outgoingTransfers.push(new Transfer(false, out.currency_type, out.num_of_coins,
               out.fname + ' ' + out.lname, out.date_time));
           }
-          this.inboundTransfer = incomingTransfers;
-          this.outboundTransfer = outgoingTransfers;
+          this.inboundTransfer = incomingTransfers; // save inbound transfers
+          this.outboundTransfer = outgoingTransfers; // save outbound transfers
         }
       });
   }
 
-  getAllUsers() {
+  getAllUsers() { // get all Users for the app
     this.globalService.getAllUsers()
       .then(res => {
         const json = JSON.parse(JSON.stringify(res));
@@ -65,13 +64,12 @@ export class AdminComponent implements OnInit {
             this.users = toSend;
             this.selectedUser = toSend[0];
             this.getData();
-
         }
     })
   }
 
 
-  getTableHeaders() {
+  getTableHeaders() { // return he table headers that will be used
     let toSend: Array<String> = new Array<String>();
     toSend.push("Coin");
     toSend.push("Number of Coin(s)");

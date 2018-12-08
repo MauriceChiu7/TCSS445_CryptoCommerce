@@ -10,10 +10,10 @@ import { GlobalService } from '../services/global.service';
 })
 export class OpenOrdersComponent implements OnInit {
 
-  globalService: GlobalService;
-  buyableListings: Array<CoinTrade>;
-  myListings: Array<CoinTrade>;
-  myCurrencies: Array<CoinEquity>;
+  globalService: GlobalService; // global service
+  buyableListings: Array<CoinTrade>; // listings I can buy from
+  myListings: Array<CoinTrade>; // listings I have created
+  myCurrencies: Array<CoinEquity>; // My currencies I can list
   constructor(globalService: GlobalService) {
     this.globalService = globalService;
   }
@@ -24,6 +24,7 @@ export class OpenOrdersComponent implements OnInit {
     this.getMyCoins();
   }
 
+  // Get the cryptocurrencies I have
   getMyCoins() {
     this.globalService.getCoinEquityForUser()
       .then(res => {
@@ -39,6 +40,7 @@ export class OpenOrdersComponent implements OnInit {
       })
   }
 
+  // Get all the open orders (both my listing and other listings)
   getAllOpenOrders() {
     this.globalService.getAllOpenOrders()
       .then(res => {
@@ -62,6 +64,7 @@ export class OpenOrdersComponent implements OnInit {
       });
   }
 
+  // set the table headers
   getTableHeaders() {
     let toSend: Array<String> = new Array<String>();
     toSend.push('Coin', 'Seller', "Number of Coins", 'Price');

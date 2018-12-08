@@ -8,18 +8,19 @@ import { Router } from '@angular/router';
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.css']
 })
+
 export class WalletComponent implements OnInit {
-  tableHeaders: Array<String>;
-  globalService: GlobalService;
-  myCurrencies: Array<CoinEquity>;
-  router: Router;
+  tableHeaders: Array<String>; // table headers
+  globalService: GlobalService; // global service
+  myCurrencies: Array<CoinEquity>; // coins I have
+  router: Router; // routing module
   constructor(globalService: GlobalService, router: Router) {
     this.tableHeaders = new Array<String>();
     this.globalService = globalService;
     this.router = router;
   }
 
-  ngOnInit() {
+  ngOnInit() { // on initialization
     this.tableHeaders.push('Currency');
     this.tableHeaders.push('Number of Coins');
     this.tableHeaders.push('Market Price/Unit');
@@ -27,10 +28,12 @@ export class WalletComponent implements OnInit {
     this.getMyCurrencies();
   }
 
+  // navigate to open orders
   goToOpenOrders() {
     this.router.navigateByUrl('/open-orders');
   }
 
+  // get coins I have
   getMyCurrencies() {
     this.globalService.getCoinEquityForUser()
       .then(res => {
@@ -45,5 +48,4 @@ export class WalletComponent implements OnInit {
         this.myCurrencies = toSend;
     });
   }
-
 }

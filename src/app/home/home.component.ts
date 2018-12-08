@@ -10,9 +10,9 @@ import { GlobalService } from '../services/global.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  users: Array<User>;
-  router: Router;
-  globalService: GlobalService;
+  users: Array<User>; // array of users
+  router: Router; // router to navigate between pages
+  globalService: GlobalService; // our global service
 
   constructor(router: Router, globalService: GlobalService) {
     this.router = router;
@@ -30,16 +30,16 @@ export class HomeComponent implements OnInit {
             toSend.push(new User(user.user_id, user.fname, user.lname, user.email, user.addr, user.phone));
           }
         }
-        this.users = toSend;
+        this.users = toSend; // save all the users
       })
   }
 
-  setUser(user: User) {
+  setUser(user: User) { // set the user for future use
     this.globalService.setCurrentUser(user);
     this.router.navigateByUrl('/dashboard');
   }
 
-  onUserLogin(userFirstLast: String) {
+  onUserLogin(userFirstLast: String) { // login as user
     for (let i = 0; i < this.users.length; i++) {
       if (userFirstLast === (this.users[i].firstname + ' ' + this.users[i].lastname)) {
         this.setUser(this.users[i]);
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  onAdminLogin() {
+  onAdminLogin() { //login as admin
     this.router.navigateByUrl('/admin');
   }
 }

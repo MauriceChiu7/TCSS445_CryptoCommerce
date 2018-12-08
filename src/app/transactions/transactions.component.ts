@@ -8,8 +8,8 @@ import { GlobalService } from '../services/global.service';
   styleUrls: ['./transactions.component.css']
 })
 export class TransactionsComponent implements OnInit {
-  globalService: GlobalService;
-  myTransactions: Array<Transaction>;
+  globalService: GlobalService; // global service
+  myTransactions: Array<Transaction>; // my transaction history
   constructor(globalService: GlobalService) {
     this.globalService = globalService;
   }
@@ -18,6 +18,7 @@ export class TransactionsComponent implements OnInit {
     this.getTransactions();
   }
 
+  // get the table headers
   getTableHeaders() {
     let toSend: Array<String> = new Array<String>();
     toSend.push("Bought/Sold");
@@ -28,6 +29,7 @@ export class TransactionsComponent implements OnInit {
     return toSend;
   }
 
+  // get my transaction history
   getTransactions() {
     this.globalService.getTransactions()
       .then(res => {

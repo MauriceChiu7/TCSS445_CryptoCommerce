@@ -12,11 +12,11 @@ import { User } from '../models/user';
 })
 export class TransfersComponent implements OnInit {
 
-  globalService: GlobalService;
-  myTransferHistory: Array<Transfer>;
-  myCurrencies: Array<CoinEquity>;
-  myRecipients: Array<User>;
-  allCurrencies: Array<Currency>;
+  globalService: GlobalService; // global service
+  myTransferHistory: Array<Transfer>; // my transfer history
+  myCurrencies: Array<CoinEquity>; // currencies I have
+  myRecipients: Array<User>; // recipients I can send to
+  allCurrencies: Array<Currency>; // data for each crypto currency
   constructor(globalService: GlobalService) {
     this.globalService = globalService;
   }
@@ -28,6 +28,7 @@ export class TransfersComponent implements OnInit {
     this.getCurrencies();
   }
 
+  //Return the table headers
   getTableHeaders() {
     let toSend: Array<String> = new Array<String>();
     toSend.push("Inbound/Outbound");
@@ -38,6 +39,7 @@ export class TransfersComponent implements OnInit {
     return toSend;
   }
 
+  // Get the currencies I have
   getCurrencies() {
     this.globalService.getCurrencies()
       .then(res => {
@@ -52,6 +54,7 @@ export class TransfersComponent implements OnInit {
     })
   }
 
+  // Get the transfer history for the user
   getTransfers() {
     this.globalService.getTransfers()
       .then(res => {
@@ -75,6 +78,7 @@ export class TransfersComponent implements OnInit {
     });
   }
 
+  // Get the coins I can transfer out
   getEquityForUser() {
     this.globalService.getCoinEquityForUser()
       .then(res => {
@@ -91,6 +95,7 @@ export class TransfersComponent implements OnInit {
 
   }
 
+  // Get the recipeients I can send coins too
   getRecipients() {
     this.globalService.getAllRecipients()
       .then(res => {
@@ -106,6 +111,7 @@ export class TransfersComponent implements OnInit {
       })
   }
 
+  // Get recipients object from full name
   _getRecipientUser(recipientFullName: String) {
     for (let i = 0; i < this.myRecipients.length; i++) {
       const curr = this.myRecipients[i];
@@ -115,6 +121,7 @@ export class TransfersComponent implements OnInit {
     }
   }
 
+  // Get Cyrpto Data object using coin name
   _getCryptoId(coinName: String) {
     for (let i = 0; i < this.allCurrencies.length; i++) {
       if (coinName === this.allCurrencies[i].coin) {
@@ -123,6 +130,7 @@ export class TransfersComponent implements OnInit {
     }
   }
 
+  // Make an outbound transfer
   transfer(recipient: String, coin: String, numberOfCoin: string) {
     if (coin.length === 0) {
       console.log('Must specify number of coins to make outbound transfer');

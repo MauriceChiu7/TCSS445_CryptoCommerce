@@ -8,7 +8,7 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { OpenOrdersComponent } from './open-orders/open-orders.component';
 import { AdminComponent } from './admin/admin.component';
 
-const routes: Routes = [
+const routes: Routes = [ // routing module
   {path: '', component: HomeComponent},
   {path: 'dashboard', component: UserDashboardComponent},
   {path: 'wallet', component: WalletComponent},

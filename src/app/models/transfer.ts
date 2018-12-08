@@ -1,10 +1,11 @@
-export class Transfer {
+export class Transfer { // Transfer object
     isInbound: Boolean;
     coin: String;
     numberOfCoins: string;
     sender_recipient: String;
     date: Date;
 
+    // constructor to create a transfer
     constructor(isInbound: Boolean, coin: String, numberOfCoins: string, sender_recipient: String, date: Date) {
         this.isInbound = isInbound;
         this.coin = coin;
