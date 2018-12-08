@@ -12,7 +12,7 @@ HOW TO RUN THE FRONT END
   3) Type in the command ng serve
   4) IF you get a '@angular-devkit/build-angular' run the command: npm install --save-dev @angular-devkit/build-angular
   5) Look at picture 'error_devkit.png' for more details regarding this error
-  6) If you ran the steps above the fron end should be live on http://localhost:4200/
+  6) If you ran the steps above the front end should be live on http://localhost:4200/
   7) If an error is persisting please don't hesistate to contact me with your concerns at harikuduva7@gmail.com
 
 FRONT END THINGS TO BE AWARE OF
