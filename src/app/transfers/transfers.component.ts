@@ -7,8 +7,7 @@ import { User } from '../models/user';
 
 @Component({
   selector: 'app-transfers',
-  templateUrl: './transfers.component.html',
-  styleUrls: ['./transfers.component.css']
+  templateUrl: './transfers.component.html'
 })
 export class TransfersComponent implements OnInit {
 

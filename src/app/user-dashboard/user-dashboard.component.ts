@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
-  templateUrl: './user-dashboard.component.html',
-  styleUrls: ['./user-dashboard.component.css']
+  templateUrl: './user-dashboard.component.html'
 })
 export class UserDashboardComponent implements OnInit {
   globalService: GlobalService; // global service

@@ -5,8 +5,7 @@ import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-open-orders',
-  templateUrl: './open-orders.component.html',
-  styleUrls: ['./open-orders.component.css']
+  templateUrl: './open-orders.component.html'
 })
 export class OpenOrdersComponent implements OnInit {
 
