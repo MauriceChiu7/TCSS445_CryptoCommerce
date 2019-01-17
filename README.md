@@ -1,5 +1,9 @@
 FRONT END README
 
+For backend, see https://github.com/MauriceChiu7/crypto-commerce-backend
+
+Author: Maurice Chiu, Hari Kuduva, Aayush Shah
+
 PREREQUISITES FOR RUNNING FRONT END
   1) Download node js https://nodejs.org/en/
   2) Download node package manager (NPM).
